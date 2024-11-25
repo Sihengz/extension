@@ -25,3 +25,19 @@ $("#input-btn").click(function() {
     inputEl.val("")
     console.log(myLeads)
 });
+
+$("#get-tab-btn").click(function() {
+    chrome.tabs.query({
+        active: true,
+        lastFocusedWindow: true
+    }, function(tabs) {
+        // and use that tab to fill in out title and url
+        var tab = tabs[0];
+        console.log(tab.url);
+        myLeads.push(tab.url)
+        localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        ulEl.append(`<li><a href="https://${tab.url}">${tab.url}</a></li>`)
+        console.log(myLeads)
+    
+    });
+})
